@@ -12,9 +12,12 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMa
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 public class MyAmazingBot extends TelegramLongPollingBot {
+    private HashMap<Long, List<Update>> database = new HashMap<>();
 
     public Sentiment getSentiment(String message) throws Exception {
         Sentiment sentiment = null;
@@ -55,6 +58,13 @@ public class MyAmazingBot extends TelegramLongPollingBot {
 
                 executeSendMessageWithButtons("You send /get", chat_id, markupInline, rowsInline);
             } else {
+                // save the user's message
+                if (database.containsKey(chat_id)) {
+                    database.get(chat_id).add(update);
+                } else {
+                    database.put(chat_id, new ArrayList<>(Arrays.asList(update)));
+                }
+                System.out.println("database size is " + database.get(chat_id).size());
                 Sentiment sentiment = null;
                 try {
                     sentiment = getSentiment(messageReceived);
@@ -67,7 +77,9 @@ public class MyAmazingBot extends TelegramLongPollingBot {
                     return;
                 }
                 // Set variables
-                String responseMessage = "Sentiment: " + sentiment.getScore() + ", " + sentiment.getMagnitude();
+                String responseMessage = "Sentiment: " + sentiment.getScore() + ", " + sentiment.getMagnitude() + "\n"
+                        + "chat_id: " + chat_id + "\n"
+                        + "date: " + update.getMessage().getDate();
 
 
                 executeSendMessage(responseMessage, chat_id);
