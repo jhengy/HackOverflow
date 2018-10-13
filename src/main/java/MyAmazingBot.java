@@ -57,6 +57,27 @@ public class MyAmazingBot extends TelegramLongPollingBot {
                 rowsInline.add(rowInline);
 
                 executeSendMessageWithButtons("You send /get", chat_id, markupInline, rowsInline);
+
+            } else if (messageReceived.matches("^/get \\d$")) {
+                int numberOfPastMessages = Integer.parseInt(messageReceived.substring(5));
+
+                try {
+                    // This list of messages is in descending order of each message's date.
+                    List<String> toBeProcessedMessage = new ArrayList<>();
+
+                    for (int i = database.get(chat_id).size() - 1; i >= database.get(chat_id).size() - numberOfPastMessages; i--) {
+                        toBeProcessedMessage.add(database.get(chat_id).get(i).getMessage().getText());
+                    }
+
+                } catch (Exception e) {
+                    executeSendMessage(e.getMessage(), chat_id);
+                    executeSendMessage("Invalid input. Make sure there are at least " +
+                            "as many messages as the input number since the bot is added.", chat_id);
+                }
+
+
+
+
             } else {
                 // save the user's message
                 if (database.containsKey(chat_id)) {
