@@ -10,6 +10,7 @@ import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
+import org.telegram.telegrambots.meta.api.objects.Message;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -69,12 +70,15 @@ public class MyAmazingBot extends TelegramLongPollingBot {
                             "as many messages as the input number since the bot is added.", chat_id);
                 } else {
                     // This list of messages is in descending order of each message's date.
-                    List<String> toBeProcessedMessage = new ArrayList<>();
+                    List<Message> toBeProcessedMessage = new ArrayList<>();
 
                     for (int i = database.get(chat_id).size() - 1; i >= database.get(chat_id).size() - numberOfPastMessages; i--) {
-                        toBeProcessedMessage.add(database.get(chat_id).get(i).getMessage().getText());
-                        executeSendMessage(database.get(chat_id).get(i).getMessage().getText(), chat_id);
+                        toBeProcessedMessage.add(database.get(chat_id).get(i).getMessage());
+//                        executeSendMessage(database.get(chat_id).get(i).getMessage().getText(), chat_id);
                     }
+                    NlpManager nlpManager = new NlpManager(toBeProcessedMessage);
+                    executeSendMessage(nlpManager.getFilteredList((x) -> x.isPositive()).toString(), chat_id);
+
                 }
 
             } else {
