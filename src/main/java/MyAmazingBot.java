@@ -45,6 +45,7 @@ public class MyAmazingBot extends TelegramLongPollingBot {
         // We check if the update has a message and the message has text
         if (update.hasMessage() && update.getMessage().hasText()) {
             long chat_id = update.getMessage().getChatId();
+            int message_id = update.getMessage().getMessageId();
             String messageReceived = update.getMessage().getText();
             // add inlinekeyboardbutton
             if (messageReceived.equals("/get")){
@@ -58,25 +59,23 @@ public class MyAmazingBot extends TelegramLongPollingBot {
 
                 executeSendMessageWithButtons("You send /get", chat_id, markupInline, rowsInline);
 
-            } else if (messageReceived.matches("^/get \\d$")) {
-                int numberOfPastMessages = Integer.parseInt(messageReceived.substring(5));
+            } else if (messageReceived.matches("^/get \\d+$")) {
+                int numberOfPastMessages = Integer.parseInt(messageReceived.substring(5), messageReceived.length());
 
-                try {
+                // handle invalid input.
+                if (numberOfPastMessages > database.get(chat_id).size()) {
+
+                    executeSendMessage("Invalid input. Make sure there are at least " +
+                            "as many messages as the input number since the bot is added.", chat_id);
+                } else {
                     // This list of messages is in descending order of each message's date.
                     List<String> toBeProcessedMessage = new ArrayList<>();
 
                     for (int i = database.get(chat_id).size() - 1; i >= database.get(chat_id).size() - numberOfPastMessages; i--) {
                         toBeProcessedMessage.add(database.get(chat_id).get(i).getMessage().getText());
+                        executeSendMessage(database.get(chat_id).get(i).getMessage().getText(), chat_id);
                     }
-
-                } catch (Exception e) {
-                    executeSendMessage(e.getMessage(), chat_id);
-                    executeSendMessage("Invalid input. Make sure there are at least " +
-                            "as many messages as the input number since the bot is added.", chat_id);
                 }
-
-
-
 
             } else {
                 // save the user's message
@@ -110,7 +109,7 @@ public class MyAmazingBot extends TelegramLongPollingBot {
             // Set variables
             String call_data = update.getCallbackQuery().getData();
             long chat_id = update.getCallbackQuery().getMessage().getChatId();
-
+            int message_id = update.getCallbackQuery().getMessage().getMessageId();
             // see which button is pressed.
             if (call_data.equals("get_sentiment_button")) {
                 String answer = "Updated message text";
@@ -119,9 +118,9 @@ public class MyAmazingBot extends TelegramLongPollingBot {
         }
     }
 
-    public void executeSendMessage(String message, Long chat_id) {
-        SendMessage send = new SendMessage() // Create a message object object
-                .setChatId(chat_id)
+    public void executeSendMessage(String message, long chat_id) {
+        SendMessage send = new SendMessage()
+                .setChatId(chat_id) // Create a message object object
                 .setText(message);
         try {
             execute(send); // Sending our message object to user
