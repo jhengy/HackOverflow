@@ -4,9 +4,15 @@ import com.google.cloud.language.v1.LanguageServiceClient;
 import com.google.cloud.language.v1.Sentiment;
 
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageText;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MyAmazingBot extends TelegramLongPollingBot {
 
@@ -35,24 +41,48 @@ public class MyAmazingBot extends TelegramLongPollingBot {
 
         // We check if the update has a message and the message has text
         if (update.hasMessage() && update.getMessage().hasText()) {
-
             long chat_id = update.getMessage().getChatId();
-            Sentiment sentiment = null;
-            try {
-                sentiment = getSentiment(update.getMessage().getText());
-            } catch (Exception e) {
-                System.err.print(e);
+            String messageReceived = update.getMessage().getText();
+            // add inlinekeyboardbutton
+            if (messageReceived.equals("/get")){
+
+                InlineKeyboardMarkup markupInline = new InlineKeyboardMarkup();
+                List<List<InlineKeyboardButton>> rowsInline = new ArrayList<>();
+                List<InlineKeyboardButton> rowInline = new ArrayList<>();
+                rowInline.add(new InlineKeyboardButton().setText("Get sentiment").setCallbackData("get_sentiment_button"));
+                // Set the keyboard to the markup
+                rowsInline.add(rowInline);
+
+                executeSendMessageWithButtons("You send /get", chat_id, markupInline, rowsInline);
+            } else {
+                Sentiment sentiment = null;
+                try {
+                    sentiment = getSentiment(messageReceived);
+                } catch (Exception e) {
+                    System.err.print(e);
+                }
+
+                if (sentiment == null) {
+                    executeSendMessage("can't analyze the sentiment.", chat_id);
+                    return;
+                }
+                // Set variables
+                String responseMessage = "Sentiment: " + sentiment.getScore() + ", " + sentiment.getMagnitude();
+
+
+                executeSendMessage(responseMessage, chat_id);
             }
 
-            if (sentiment == null) {
-                executeSendMessage("can't analyze the sentiment.", chat_id);
-                return;
-            }
+        } else if (update.hasCallbackQuery()) {
             // Set variables
-            String responseMessage = "Sentiment: " + sentiment.getScore() + ", " + sentiment.getMagnitude();
+            String call_data = update.getCallbackQuery().getData();
+            long chat_id = update.getCallbackQuery().getMessage().getChatId();
 
-
-            executeSendMessage(responseMessage, chat_id);
+            // see which button is pressed.
+            if (call_data.equals("get_sentiment_button")) {
+                String answer = "Updated message text";
+                executeSendMessage(answer, chat_id);
+            }
         }
     }
 
@@ -60,6 +90,19 @@ public class MyAmazingBot extends TelegramLongPollingBot {
         SendMessage send = new SendMessage() // Create a message object object
                 .setChatId(chat_id)
                 .setText(message);
+        try {
+            execute(send); // Sending our message object to user
+        } catch (TelegramApiException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void executeSendMessageWithButtons(String message, Long chat_id, InlineKeyboardMarkup markupInline , List<List<InlineKeyboardButton>> rowsInline) {
+        SendMessage send = new SendMessage() // Create a message object object
+                .setChatId(chat_id)
+                .setText(message);
+        markupInline.setKeyboard(rowsInline);
+        send.setReplyMarkup(markupInline);
         try {
             execute(send); // Sending our message object to user
         } catch (TelegramApiException e) {
