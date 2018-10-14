@@ -88,10 +88,6 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/MyAmazingBot.java">
           <provider selected="true" editor-type-id="text-editor">
-<<<<<<< HEAD
-            <state relative-caret-position="1768">
-              <caret line="120" column="9" selection-start-line="120" selection-start-column="9" selection-end-line="120" selection-end-column="9" />
-=======
             <state relative-caret-position="240">
               <caret line="79" column="39" lean-forward="true" selection-start-line="79" selection-start-column="39" selection-end-line="79" selection-end-column="39" />
               <folding>
@@ -133,7 +129,6 @@
                 <element signature="e#4569#4570#0" expanded="true" />
                 <element signature="e#4608#4609#0" expanded="true" />
               </folding>
->>>>>>> f7a0983b8efdd8a412f9976e99dc1cb1589b51c3
             </state>
           </provider>
         </entry>
@@ -363,11 +358,7 @@
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1295" height="695" extended-state="7" />
     <layout>
-<<<<<<< HEAD
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.26153848" />
-=======
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2574899" />
->>>>>>> f7a0983b8efdd8a412f9976e99dc1cb1589b51c3
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -416,9 +407,6 @@
         </state>
       </provider>
     </entry>
-<<<<<<< HEAD
-    <entry file="jar://$USER_HOME$/Downloads/telegrambots-4.1-jar-with-dependencies.jar!/org/telegram/telegrambots/meta/api/objects/Message.class" />
-=======
     <entry file="file://$PROJECT_DIR$/src/main/java/Main.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="210">
@@ -429,7 +417,6 @@
         </state>
       </provider>
     </entry>
->>>>>>> f7a0983b8efdd8a412f9976e99dc1cb1589b51c3
     <entry file="jar://C:/Program Files/Java/jdk-9.0.1/lib/src.zip!/java.base/java/util/Collection.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-684">
@@ -444,10 +431,7 @@
         </state>
       </provider>
     </entry>
-<<<<<<< HEAD
-    <entry file="jar://$USER_HOME$/Downloads/telegrambots-4.1-jar-with-dependencies.jar!/org/telegram/telegrambots/meta/api/objects/Update.class" />
-=======
->>>>>>> f7a0983b8efdd8a412f9976e99dc1cb1589b51c3
+
     <entry file="jar://C:/Program Files/Java/jdk-9.0.1/lib/src.zip!/java.base/java/util/ArrayList.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-9">
@@ -463,15 +447,57 @@
         </state>
       </provider>
     </entry>
-<<<<<<< HEAD
-    <entry file="file://$PROJECT_DIR$/BotServer.iml">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Main.java">
+    <entry file="jar://C:/Program Files/Java/jdk-9.0.1/lib/src.zip!/java.base/java/util/ArrayList.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="16" column="9" selection-start-line="16" selection-start-column="9" selection-end-line="16" selection-end-column="9" />
-=======
+        <state relative-caret-position="150">
+          <caret line="16" column="17" selection-start-line="16" selection-start-column="17" selection-end-line="16" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/Downloads/telegrambots-4.1-jar-with-dependencies.jar!/org/telegram/telegrambots/meta/api/objects/Message.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2190">
+          <caret line="19" column="40" lean-forward="true" selection-start-line="19" selection-start-column="40" selection-end-line="19" selection-end-column="40" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#6871#6872#0" expanded="true" />
+            <element signature="e#6903#6904#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ProcessedMessage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="365">
+          <caret line="136" column="1" selection-start-line="136" selection-start-column="1" selection-end-line="136" selection-end-column="1" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#4132#4133#0" expanded="true" />
+            <element signature="e#4159#4160#0" expanded="true" />
+            <element signature="e#4197#4198#0" expanded="true" />
+            <element signature="e#4232#4233#0" expanded="true" />
+            <element signature="e#4274#4275#0" expanded="true" />
+            <element signature="e#4313#4314#0" expanded="true" />
+            <element signature="e#4356#4357#0" expanded="true" />
+            <element signature="e#4389#4390#0" expanded="true" />
+            <element signature="e#4437#4438#0" expanded="true" />
+            <element signature="e#4481#4482#0" expanded="true" />
+            <element signature="e#4569#4570#0" expanded="true" />
+            <element signature="e#4608#4609#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/NlpManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="305">
+          <caret line="53" column="1" selection-start-line="53" selection-start-column="1" selection-end-line="53" selection-end-column="1" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="jar://$USER_HOME$/Downloads/telegrambots-4.1-jar-with-dependencies.jar!/org/telegram/telegrambots/meta/api/objects/Update.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="195">
@@ -534,7 +560,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="240">
           <caret line="79" column="39" lean-forward="true" selection-start-line="79" selection-start-column="39" selection-end-line="79" selection-end-column="39" />
->>>>>>> f7a0983b8efdd8a412f9976e99dc1cb1589b51c3
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
